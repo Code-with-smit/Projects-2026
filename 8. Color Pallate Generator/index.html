@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraPalette | 100,000 Premium Color Palettes Database & Generator</title>
+  <meta name="description" content="Generate elegant, designer-approved palettes instantly. Features a local database of 100,000 premium curated palettes, color conversions, accessibility scores, and live preview dashboard.">
+  
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Premium Canvas/Background Glow Effect -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <div class="app-container">
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#logoGradient)"/>
+          <path d="M16 6C10.48 6 6 10.48 6 16C6 21.52 10.48 26 16 26C21.52 26 26 21.52 26 16C26 10.48 21.52 6 16 6ZM16 23C12.13 23 9 19.87 9 16C9 12.13 12.13 9 16 9C19.87 9 23 12.13 23 16C23 19.87 19.87 23 16 23Z" fill="white"/>
+          <circle cx="16" cy="16" r="4" fill="white"/>
+          <defs>
+            <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366F1"/>
+              <stop offset="1" stop-color="#06B6D4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="logo-text">
+          <h1>AuraPalette</h1>
+          <span>DESIGNER STUDIO</span>
+        </div>
+      </div>
+
+      <nav class="header-nav">
+        <button id="nav-btn-explorer" class="nav-link active" onclick="switchTab('explorer')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          100k Database
+        </button>
+        <button id="nav-btn-sandbox" class="nav-link" onclick="switchTab('sandbox')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Live Sandbox
+        </button>
+        <button id="nav-btn-studio" class="nav-link" onclick="switchTab('studio')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          My Studio
+        </button>
+      </nav>
+
+      <div class="header-stats">
+        <div class="stat-badge">
+          <span class="stat-dot"></span>
+          <span id="stat-count">100,000 Palettes Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="app-workspace">
+      
+      <!-- TAB 1: Palette Explorer -->
+      <section id="tab-explorer" class="tab-pane active">
+        <!-- Sidebar filters + search -->
+        <aside class="sidebar-filters">
+          <div class="sidebar-block search-block">
+            <label for="search-input">Search Database</label>
+            <div class="search-wrapper">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="search-input" placeholder="Search by name, category, mood, HEX..." autocomplete="off">
+              <button id="clear-search" class="clear-btn" style="display: none;">&times;</button>
+            </div>
+            <span class="search-hint">Try "luxury", "#6366F1", "dark", "neon"</span>
+          </div>
+
+          <div class="sidebar-block filter-section">
+            <h3 class="filter-title">Advanced Filters</h3>
+            
+            <div class="filter-group">
+              <label>Luminance & Temp</label>
+              <div class="filter-tags">
+                <button class="filter-tag" data-filter="Light">Light</button>
+                <button class="filter-tag" data-filter="Dark">Dark</button>
+                <button class="filter-tag" data-filter="Warm">Warm</button>
+                <button class="filter-tag" data-filter="Cool">Cool</button>
+                <button class="filter-tag" data-filter="Vibrant">Vibrant</button>
+                <button class="filter-tag" data-filter="Muted">Muted</button>
+                <button class="filter-tag" data-filter="Pastel">Pastel</button>
+                <button class="filter-tag" data-filter="Monochrome">Monochrome</button>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label>Mood Tone</label>
+              <select id="mood-select" class="premium-select">
+                <option value="All">All Moods</option>
+                <!-- populated by JS -->
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Vibe Category</label>
+              <div class="category-list" id="category-filter-list">
+                <!-- populated by JS -->
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Palette Browser Area -->
+        <div class="explorer-content">
+          <!-- Hero Section inside explorer -->
+          <div class="hero-section">
+            <div class="hero-badge">Curated Color Harmonies</div>
+            <h2 class="hero-title">100,000 Premium Color Palettes</h2>
+            <p class="hero-subtitle">Generate elegant, designer-approved color layouts for web products, luxury branding, and editorial art instantly.</p>
+            
+            <div class="hero-actions">
+              <button id="btn-generate-random" class="btn btn-primary btn-glow-hover">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Generate Palette
+              </button>
+              <button id="btn-shuffle-current" class="btn btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M10 10l-6-6"/></svg>
+                Shuffle Colors
+              </button>
+              <button id="btn-quick-export" class="btn btn-secondary" onclick="openExportModalCurrent()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Export Current
+              </button>
+            </div>
+
+            <!-- Current Active Palette Control Strip -->
+            <div class="active-palette-strip-card glass-panel" id="active-strip">
+              <div class="strip-header">
+                <div class="strip-info">
+                  <h4 id="active-palette-name">Generating...</h4>
+                  <div class="strip-badges">
+                    <span id="active-palette-cat" class="badge">Luxury</span>
+                    <span id="active-palette-mood" class="badge badge-accent">Elegant</span>
+                  </div>
+                </div>
+                <div class="strip-actions">
+                  <button class="strip-btn" id="strip-btn-fav" title="Favorite Current">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </button>
+                  <button class="strip-btn" id="strip-btn-copy-all" title="Copy Palette Array">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                  <button class="strip-btn" id="strip-btn-apply" title="Apply to Sandbox">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M7.5 10.5L10.5 13.5 16.5 7.5"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="strip-color-grid" id="active-color-blocks">
+                <!-- populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Browser Controls (sorting, results count) -->
+          <div class="browser-header">
+            <span class="results-count" id="results-count">Showing 100,000 palettes</span>
+            <div class="browser-sort-controls">
+              <label for="sort-select">Sort By</label>
+              <select id="sort-select" class="premium-select select-sm">
+                <option value="id-asc">Database ID (Asc)</option>
+                <option value="id-desc">Database ID (Desc)</option>
+                <option value="name-asc">A-Z</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Infinite / Virtual scroll container -->
+          <div class="virtual-scroll-viewport" id="virtual-viewport">
+            <div class="virtual-scroll-runway" id="virtual-runway"></div>
+            <div class="virtual-scroll-content" id="virtual-content">
+              <!-- Cards dynamically inserted here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Live Preview Sandbox -->
+      <section id="tab-sandbox" class="tab-pane">
+        <div class="sandbox-layout">
+          <!-- Sandbox Sidebar Controls -->
+          <div class="sandbox-sidebar glass-panel">
+            <h3 class="sandbox-panel-title">Component Canvas</h3>
+            <p class="sandbox-panel-subtitle">Select a palette from the Explorer or randomize here to preview theme matching across web designs.</p>
+            
+            <div class="sandbox-palette-preview">
+              <label>Current Canvas Colors</label>
+              <div class="sandbox-current-blocks" id="sandbox-current-blocks">
+                <!-- current palette color pills -->
+              </div>
+              <div class="sandbox-actions-row">
+                <button id="sandbox-btn-rand" class="btn btn-secondary btn-sm">Randomize</button>
+                <button id="sandbox-btn-lock" class="btn btn-secondary btn-sm" onclick="openExportModalCurrent()">Export Code</button>
+              </div>
+            </div>
+
+            <div class="preview-theme-selector">
+              <label>Layout Color Mapping</label>
+              <div class="mapping-list">
+                <div class="mapping-item">
+                  <span>Background</span>
+                  <select id="map-bg" class="premium-select select-sm map-selector"></select>
+                </div>
+                <div class="mapping-item">
+                  <span>Surface / Card</span>
+                  <select id="map-surface" class="premium-select select-sm map-selector"></select>
+                </div>
+                <div class="mapping-item">
+                  <span>Primary Brand</span>
+                  <select id="map-primary" class="premium-select select-sm map-selector"></select>
+                </div>
+                <div class="mapping-item">
+                  <span>Secondary Color</span>
+                  <select id="map-secondary" class="premium-select select-sm map-selector"></select>
+                </div>
+                <div class="mapping-item">
+                  <span>Accent/Glow</span>
+                  <select id="map-accent" class="premium-select select-sm map-selector"></select>
+                </div>
+                <div class="mapping-item">
+                  <span>Text Color</span>
+                  <select id="map-text" class="premium-select select-sm map-selector"></select>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-sm btn-full" onclick="resetDefaultMapping()">Reset Mapping</button>
+            </div>
+          </div>
+
+          <!-- Interactive Dashboard Mockup Canvas -->
+          <div class="sandbox-canvas" id="sandbox-mockup-wrapper">
+            <!-- Simulated Browser UI Frame -->
+            <div class="mockup-browser-frame">
+              <div class="browser-header-bar">
+                <div class="browser-dots">
+                  <span class="dot-red"></span>
+                  <span class="dot-yellow"></span>
+                  <span class="dot-green"></span>
+                </div>
+                <div class="browser-address">https://auraproductions.dev/dashboard</div>
+              </div>
+
+              <!-- Main Mockup Viewport -->
+              <div class="mockup-content-viewport" id="mockup-viewport">
+                
+                <!-- Mockup Sidebar Nav -->
+                <aside class="mockup-sidebar">
+                  <div class="mockup-logo">
+                    <span class="mockup-logo-icon"></span>
+                    <span class="mockup-logo-text">Enterprise.ai</span>
+                  </div>
+                  <nav class="mockup-side-menu">
+                    <a href="#" class="menu-item active">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                      Overview
+                    </a>
+                    <a href="#" class="menu-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                      Analytics
+                    </a>
+                    <a href="#" class="menu-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                      Billing
+                    </a>
+                    <a href="#" class="menu-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                      Settings
+                    </a>
+                  </nav>
+                  
+                  <div class="mockup-profile">
+                    <div class="avatar">SA</div>
+                    <div class="profile-info">
+                      <span class="user-name">Smit Ahir</span>
+                      <span class="user-role">Administrator</span>
+                    </div>
+                  </div>
+                </aside>
+
+                <!-- Mockup Main Workspace -->
+                <div class="mockup-workspace-content">
+                  <!-- Mockup Navbar -->
+                  <nav class="mockup-navbar">
+                    <div class="navbar-title">Performance Dashboard</div>
+                    <div class="navbar-actions">
+                      <button class="mockup-btn mockup-btn-outline">Documentation</button>
+                      <button class="mockup-btn mockup-btn-filled">Deploy Project</button>
+                    </div>
+                  </nav>
+
+                  <!-- Mockup Hero Hero Area -->
+                  <div class="mockup-hero">
+                    <div class="hero-badge-pill">V3.5 Release Stable</div>
+                    <h2>Welcome to the next generation of cloud scale analytics.</h2>
+                    <p>Build, test, and deploy micro-frontend modules with millisecond execution latency. No cold starts. No servers to configure.</p>
+                    <div class="hero-actions-row">
+                      <button class="mockup-btn mockup-btn-filled">Create New Module</button>
+                      <button class="mockup-btn mockup-btn-outline">Read API Guide</button>
+                    </div>
+                  </div>
+
+                  <!-- Mockup Cards Grid -->
+                  <div class="mockup-cards-grid">
+                    <div class="mockup-card">
+                      <div class="card-head">
+                        <span class="card-title">Daily Operations</span>
+                        <span class="card-trend positive">+14.2%</span>
+                      </div>
+                      <div class="card-metric">482,900</div>
+                      <p class="card-desc">Successful transactions completed through endpoint gateways.</p>
+                      <!-- Mini chart visualization -->
+                      <div class="mockup-mini-chart">
+                        <span class="bar" style="height: 40%"></span>
+                        <span class="bar" style="height: 60%"></span>
+                        <span class="bar" style="height: 50%"></span>
+                        <span class="bar" style="height: 75%"></span>
+                        <span class="bar" style="height: 90%"></span>
+                        <span class="bar animate-grow" style="height: 95%"></span>
+                      </div>
+                    </div>
+
+                    <div class="mockup-card">
+                      <div class="card-head">
+                        <span class="card-title">Active Consumers</span>
+                        <span class="card-trend neutral">0.0%</span>
+                      </div>
+                      <div class="card-metric">12,409</div>
+                      <p class="card-desc">Simultaneous websocket sockets open across geo-clusters.</p>
+                      <!-- Mini chart visualization -->
+                      <div class="mockup-mini-chart line-chart-dots">
+                        <span class="dot" style="bottom: 20%; left: 10%"></span>
+                        <span class="dot" style="bottom: 40%; left: 30%"></span>
+                        <span class="dot" style="bottom: 35%; left: 50%"></span>
+                        <span class="dot" style="bottom: 70%; left: 70%"></span>
+                        <span class="dot" style="bottom: 85%; left: 90%"></span>
+                      </div>
+                    </div>
+
+                    <div class="mockup-card pricing-featured-card">
+                      <div class="card-badge">Enterprise</div>
+                      <div class="card-metric">$199<span class="per-month">/mo</span></div>
+                      <p class="card-desc">Unlimited nodes, custom analytics dashboards, SLA agreements.</p>
+                      <button class="mockup-btn mockup-btn-filled btn-full">Choose Tier</button>
+                    </div>
+                  </div>
+
+                  <!-- Interactive Form & Details Layout -->
+                  <div class="mockup-details-layout">
+                    <div class="mockup-card col-span-2">
+                      <h3>Configure Gateway Settings</h3>
+                      <form class="mockup-form" onsubmit="event.preventDefault()">
+                        <div class="form-row">
+                          <div class="form-group">
+                            <label>Domain Namespace</label>
+                            <input type="text" value="auraproductions.dev" class="mockup-input">
+                          </div>
+                          <div class="form-group">
+                            <label>Cluster Priority</label>
+                            <select class="mockup-select">
+                              <option>High Priority - Tier-1</option>
+                              <option>Standard Priority</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row checkbox-row">
+                          <input type="checkbox" id="check-ssl" checked>
+                          <label for="check-ssl">Enforce HTTPS & Client SSL Validation</label>
+                        </div>
+                        <button class="mockup-btn mockup-btn-filled">Apply Configuration</button>
+                      </form>
+                    </div>
+
+                    <div class="mockup-card">
+                      <h3>Gateway Health</h3>
+                      <div class="status-list">
+                        <div class="status-item">
+                          <span>US-East Core</span>
+                          <span class="badge badge-success">Online</span>
+                        </div>
+                        <div class="status-item">
+                          <span>EU-West Node</span>
+                          <span class="badge badge-success">Online</span>
+                        </div>
+                        <div class="status-item">
+                          <span>AP-South Edge</span>
+                          <span class="badge badge-warning">High Load</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mockup Footer -->
+                  <footer class="mockup-footer">
+                    <span>© 2026 Enterprise.ai Inc.</span>
+                    <div class="footer-links">
+                      <a href="#">Privacy Policy</a>
+                      <a href="#">Security Audits</a>
+                    </div>
+                  </footer>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Saved Studio & History -->
+      <section id="tab-studio" class="tab-pane">
+        <div class="studio-layout">
+          <!-- Favorites Board -->
+          <div class="studio-section">
+            <div class="section-header">
+              <h2>My Favorites</h2>
+              <button id="btn-clear-favorites" class="btn btn-secondary btn-sm" onclick="clearFavorites()">Clear Favorites</button>
+            </div>
+            <div class="favorites-grid" id="favorites-grid">
+              <!-- Dynamically populated -->
+              <div class="empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <p>No favorites saved yet. Click the heart icon on any palette to keep it here!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- History Board -->
+          <div class="studio-section">
+            <div class="section-header">
+              <h2>Recent History</h2>
+              <button id="btn-clear-history" class="btn btn-secondary btn-sm" onclick="clearHistory()">Clear History</button>
+            </div>
+            <div class="history-list-view" id="history-list">
+              <!-- Dynamically populated -->
+              <div class="empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <p>No history available. Start browsing or generating palettes to track details.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+
+  <!-- COLOR DETAILS / ANALYZER SIDEBAR MODAL (Sliding Drawer or Overlay Modal) -->
+  <div class="modal-overlay" id="analyzer-modal">
+    <div class="analyzer-drawer">
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <span class="active-badge">Color Analyzer</span>
+          <h3 id="analyzer-title-hex">#6366F1</h3>
+        </div>
+        <button class="close-drawer-btn" onclick="closeAnalyzerModal()">&times;</button>
+      </div>
+
+      <div class="drawer-body">
+        
+        <!-- Large Color Block Preview -->
+        <div class="analyzer-preview-block" id="analyzer-preview-bg">
+          <div class="analyzer-preview-details">
+            <span class="contrast-badge" id="analyzer-contrast-label">Contrast: 4.5:1</span>
+            <span class="accessibility-pill" id="analyzer-wcag-badge">WCAG AA Pass</span>
+          </div>
+        </div>
+
+        <!-- Format Selector Code Converter -->
+        <div class="analyzer-section">
+          <h4 class="section-title">Color Conversions</h4>
+          <div class="conversions-grid" id="conversion-formats-grid">
+            <!-- Populated dynamically: Hex, RGB, RGBA, HSL, HSLA, HSV, CMYK, LAB, LCH, OKLAB, OKLCH, CSS, Tailwind -->
+          </div>
+        </div>
+
+        <!-- Component Previews -->
+        <div class="analyzer-section">
+          <h4 class="section-title">Aesthetics & Accessibility Previews</h4>
+          
+          <div class="components-preview-grid">
+            <div class="component-preview-item card-preview-border" id="preview-border-demo">
+              <h5>Border Preview</h5>
+              <p>Simulating elements with colored glass bounds.</p>
+            </div>
+
+            <div class="component-preview-item" id="preview-text-demo">
+              <h5>Typography Preview</h5>
+              <p class="demo-text-primary">Primary Heading Text</p>
+              <p class="demo-text-secondary">Secondary body details.</p>
+            </div>
+
+            <div class="component-preview-item" id="preview-button-demo">
+              <h5>Interactive Buttons</h5>
+              <button class="btn btn-sm btn-preview-solid" id="demo-btn-solid">Solid Button</button>
+              <button class="btn btn-sm btn-preview-outline" id="demo-btn-outline">Ghost Button</button>
+            </div>
+
+            <div class="component-preview-item" id="preview-lightness-contrast-demo">
+              <h5>WCAG Readability Grid</h5>
+              <div class="wcag-scores">
+                <div class="score-line">
+                  <span>Small Text (14pt)</span>
+                  <strong id="wcag-small-text">Fail</strong>
+                </div>
+                <div class="score-line">
+                  <span>Large Text (18pt+)</span>
+                  <strong id="wcag-large-text">Pass</strong>
+                </div>
+                <div class="score-line">
+                  <span>UI Elements / Icons</span>
+                  <strong id="wcag-ui-elements">Pass</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT MODAL -->
+  <div class="modal-overlay" id="export-modal" onclick="closeExportModal(event)">
+    <div class="export-dialog glass-panel" onclick="event.stopPropagation()">
+      <div class="export-header">
+        <h3>Export Palette</h3>
+        <button class="close-btn" onclick="closeExportModal()">&times;</button>
+      </div>
+      
+      <div class="export-body">
+        <div class="export-tabs">
+          <button class="export-tab active" data-export="css" onclick="switchExportTab(this, 'css')">CSS</button>
+          <button class="export-tab" data-export="scss" onclick="switchExportTab(this, 'scss')">SASS/SCSS</button>
+          <button class="export-tab" data-export="tailwind" onclick="switchExportTab(this, 'tailwind')">Tailwind</button>
+          <button class="export-tab" data-export="json" onclick="switchExportTab(this, 'json')">JSON</button>
+          <button class="export-tab" data-export="svg" onclick="switchExportTab(this, 'svg')">SVG</button>
+          <button class="export-tab" data-export="png" onclick="switchExportTab(this, 'png')">PNG</button>
+          <button class="export-tab" data-export="txt" onclick="switchExportTab(this, 'txt')">TXT</button>
+          <button class="export-tab" data-export="pdf" onclick="switchExportTab(this, 'pdf')">PDF Print</button>
+        </div>
+
+        <div class="export-pane active" id="pane-code">
+          <pre><code id="export-code-box">Generating code...</code></pre>
+          <button class="btn btn-primary btn-full" id="btn-copy-export">Copy Export Codes</button>
+        </div>
+
+        <div class="export-pane" id="pane-visual">
+          <p class="visual-export-desc">Generate premium quality graphics assets of this palette directly inside your browser container.</p>
+          <div class="visual-export-preview" id="visual-palette-preview">
+            <!-- SVG or Canvas preview -->
+          </div>
+          <button class="btn btn-primary btn-full" id="btn-download-export">Download Asset File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Wrapper -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="palettes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

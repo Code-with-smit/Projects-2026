@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cipher — Password Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient background canvas (subtle particle/grid animation) -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <main class="page">
+
+    <header class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M6 10V8a6 6 0 1 1 12 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="15" r="1.6" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand__name">CIPHER</span>
+    </header>
+
+    <section class="card" aria-labelledby="card-title">
+
+      <div class="card__head">
+        <h1 id="card-title">Generate a secure password</h1>
+        <p class="card__sub">Tuned to your rules. Kept on your screen.</p>
+      </div>
+
+      <!-- Password display -->
+      <div class="vault" id="vault">
+        <div class="vault__scanline" aria-hidden="true"></div>
+        <output id="password-output" class="vault__text" for="length-slider" aria-live="polite">Click generate</output>
+        <button id="copy-btn" class="icon-btn" type="button" aria-label="Copy password to clipboard" title="Copy">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+            <rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.2" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M15.5 8.5V6.7A2.2 2.2 0 0 0 13.3 4.5H6.7A2.2 2.2 0 0 0 4.5 6.7v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8" stroke="currentColor" stroke-width="1.7"/>
+          </svg>
+        </button>
+        <span id="copy-toast" class="vault__toast" role="status">Password Copied ✓</span>
+      </div>
+
+      <!-- Strength meter -->
+      <div class="strength" id="strength-wrap" aria-hidden="false">
+        <div class="strength__bar">
+          <div class="strength__fill" id="strength-fill"></div>
+        </div>
+        <div class="strength__row">
+          <span class="strength__label" id="strength-label">—</span>
+          <span class="strength__entropy" id="entropy-label">0 bits</span>
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <p class="warning" id="warning-msg" role="alert">Select at least one character type.</p>
+
+      <!-- Length control -->
+      <div class="control">
+        <div class="control__row">
+          <label for="length-slider">Password length</label>
+          <span class="control__value" id="length-value">16</span>
+        </div>
+        <input type="range" id="length-slider" min="4" max="32" value="16" step="1" />
+      </div>
+
+      <!-- Character type options -->
+      <div class="options" role="group" aria-label="Character types">
+        <label class="option">
+          <input type="checkbox" id="opt-upper" checked />
+          <span class="option__box" aria-hidden="true"></span>
+          <span class="option__text">Uppercase <em>A–Z</em></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" id="opt-lower" checked />
+          <span class="option__box" aria-hidden="true"></span>
+          <span class="option__text">Lowercase <em>a–z</em></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" id="opt-numbers" checked />
+          <span class="option__box" aria-hidden="true"></span>
+          <span class="option__text">Numbers <em>0–9</em></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" id="opt-symbols" checked />
+          <span class="option__box" aria-hidden="true"></span>
+          <span class="option__text">Symbols <em>!@#$%^&*</em></span>
+        </label>
+      </div>
+
+      <!-- Generate -->
+      <button id="generate-btn" class="generate-btn" type="button">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+          <path d="M4 12a8 8 0 0 1 14.5-4.5M20 12a8 8 0 0 1-14.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18.5 3.5v4.5H14M5.5 20.5V16H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Generate Password
+      </button>
+
+      <!-- History -->
+      <details class="history" id="history-wrap">
+        <summary>Recent passwords <span class="history__count" id="history-count">0</span></summary>
+        <ul class="history__list" id="history-list"></ul>
+      </details>
+
+    </section>
+
+    <p class="foot-note">Generated locally in your browser. Nothing is sent anywhere.</p>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

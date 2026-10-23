@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXUS — AI Calculator</title>
+    <meta name="description" content="World-class futuristic AI-powered calculator" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Aurora Background -->
+    <div id="aurora">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Mouse Glow -->
+    <div id="mouse-glow"></div>
+
+    <!-- App Shell -->
+    <div id="app">
+
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">NEXUS</span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">⊞</span><span class="nav-label">Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="standard">
+                    <span class="nav-icon">⊟</span><span class="nav-label">Standard</span>
+                </li>
+                <li class="nav-item" data-page="scientific">
+                    <span class="nav-icon">∑</span><span class="nav-label">Scientific</span>
+                </li>
+                <li class="nav-item" data-page="programmer">
+                    <span class="nav-icon">⋮</span><span class="nav-label">Programmer</span>
+                </li>
+                <li class="nav-item" data-page="graphing">
+                    <span class="nav-icon">∿</span><span class="nav-label">Graphing</span>
+                </li>
+                <li class="nav-item" data-page="financial">
+                    <span class="nav-icon">₹</span><span class="nav-label">Financial</span>
+                </li>
+                <li class="nav-item" data-page="currency">
+                    <span class="nav-icon">⇄</span><span class="nav-label">Currency</span>
+                </li>
+                <li class="nav-item" data-page="unit">
+                    <span class="nav-icon">⊗</span><span class="nav-label">Unit Conv.</span>
+                </li>
+                <li class="nav-item" data-page="history">
+                    <span class="nav-icon">↺</span><span class="nav-label">History</span>
+                </li>
+                <li class="nav-item" data-page="formulas">
+                    <span class="nav-icon">∫</span><span class="nav-label">Formulas</span>
+                </li>
+                <li class="nav-item" data-page="ai">
+                    <span class="nav-icon">✦</span><span class="nav-label">AI Assistant</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙</span><span class="nav-label">Settings</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="content">
+
+            <!-- ── DASHBOARD ──────────────────────────────── -->
+            <section id="page-dashboard" class="page active">
+                <div class="page-header glass">
+                    <div>
+                        <h1 id="clock" class="clock">00:00:00</h1>
+                        <p id="date-display" class="date-text"></p>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="welcome-text">Welcome to <span class="text-primary">NEXUS</span></div>
+                        <div class="welcome-sub">AI-powered computational engine</div>
+                    </div>
+                </div>
+                <div class="dash-grid">
+                    <div class="dash-tile glass" data-goto="standard">
+                        <div class="tile-icon" style="background:var(--grad-cyan)">⊟</div>
+                        <div class="tile-label">Standard</div>
+                    </div>
+                    <div class="dash-tile glass" data-goto="scientific">
+                        <div class="tile-icon" style="background:var(--grad-purple)">∑</div>
+                        <div class="tile-label">Scientific</div>
+                    </div>
+                    <div class="dash-tile glass" data-goto="programmer">
+                        <div class="tile-icon" style="background:var(--grad-green)">01</div>
+                        <div class="tile-label">Programmer</div>
+                    </div>
+                    <div class="dash-tile glass" data-goto="graphing">
+                        <div class="tile-icon" style="background:var(--grad-orange)">∿</div>
+                        <div class="tile-label">Graphing</div>
+                    </div>
+                    <div class="dash-tile glass" data-goto="financial">
+                        <div class="tile-icon" style="background:var(--grad-yellow)">₹</div>
+                        <div class="tile-label">Financial</div>
+                    </div>
+                    <div class="dash-tile glass" data-goto="currency">
+                        <div class="tile-icon" style="background:var(--grad-pink)">⇄</div>
+                        <div class="tile-label">Currency</div>
+                    </div>
+                </div>
+                <div class="glass dash-stats">
+                    <div class="stat-item">
+                        <div class="stat-val" id="stat-total">0</div>
+                        <div class="stat-lbl">Total Calculations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="stat-today">0</div>
+                        <div class="stat-lbl">Today</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="stat-starred">0</div>
+                        <div class="stat-lbl">Starred</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── STANDARD CALCULATOR ──────────────────── -->
+            <section id="page-standard" class="page">
+                <div class="calc-wrapper">
+                    <div class="glass calc-card">
+                        <div class="calc-display">
+                            <div class="calc-expr" id="std-expr"></div>
+                            <div class="calc-result" id="std-result">0</div>
+                        </div>
+                        <div class="calc-grid std-grid">
+                            <button class="cbtn span2 fn-btn" data-action="clear">C</button>
+                            <button class="cbtn fn-btn" data-action="sign">±</button>
+                            <button class="cbtn op-btn" data-action="op" data-val="%">%</button>
+                            <button class="cbtn fn-btn" data-action="backspace">⌫</button>
+                            <button class="cbtn fn-btn" data-action="sqrt">√</button>
+                            <button class="cbtn fn-btn" data-action="sq">x²</button>
+                            <button class="cbtn fn-btn" data-action="inv">1/x</button>
+                            <button class="cbtn op-btn" data-action="op" data-val="÷">÷</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="7">7</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="8">8</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="9">9</button>
+                            <button class="cbtn op-btn" data-action="op" data-val="×">×</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="4">4</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="5">5</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="6">6</button>
+                            <button class="cbtn op-btn" data-action="op" data-val="−">−</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="1">1</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="2">2</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="3">3</button>
+                            <button class="cbtn op-btn" data-action="op" data-val="+">+</button>
+                            <button class="cbtn num-btn" data-action="num" data-val="0">0</button>
+                            <button class="cbtn num-btn" data-action="dot">.</button>
+                            <button class="cbtn mem-btn" data-action="mem" data-val="MC">MC</button>
+                            <button class="cbtn eq-btn span-none" data-action="equals">=</button>
+                        </div>
+                        <div class="mem-row">
+                            <button class="mbtn" data-action="mem" data-val="MS">MS</button>
+                            <button class="mbtn" data-action="mem" data-val="MR">MR</button>
+                            <button class="mbtn" data-action="mem" data-val="M+">M+</button>
+                            <button class="mbtn" data-action="mem" data-val="M-">M−</button>
+                            <div class="mem-indicator" id="mem-indicator">M: <span id="mem-val">0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SCIENTIFIC CALCULATOR ──────────────────── -->
+            <section id="page-scientific" class="page">
+                <div class="calc-wrapper wide">
+                    <div class="glass calc-card">
+                        <div class="calc-display">
+                            <div class="calc-expr" id="sci-expr"></div>
+                            <div class="calc-result" id="sci-result">0</div>
+                        </div>
+                        <div class="deg-rad-toggle">
+                            <button class="deg-btn active" id="deg-btn" onclick="setSciMode('deg')">DEG</button>
+                            <button class="deg-btn" id="rad-btn" onclick="setSciMode('rad')">RAD</button>
+                        </div>
+                        <div class="calc-grid sci-grid">
+                            <button class="cbtn fn-btn" data-sci="sin(">sin</button>
+                            <button class="cbtn fn-btn" data-sci="cos(">cos</button>
+                            <button class="cbtn fn-btn" data-sci="tan(">tan</button>
+                            <button class="cbtn fn-btn" data-sci="asin(">sin⁻¹</button>
+                            <button class="cbtn fn-btn" data-sci="acos(">cos⁻¹</button>
+                            <button class="cbtn fn-btn" data-sci="atan(">tan⁻¹</button>
+                            <button class="cbtn fn-btn" data-sci="log(">log</button>
+                            <button class="cbtn fn-btn" data-sci="ln(">ln</button>
+                            <button class="cbtn fn-btn" data-sci="sqrt(">√</button>
+                            <button class="cbtn fn-btn" data-sci="cbrt(">∛</button>
+                            <button class="cbtn fn-btn" data-sci="abs(">|x|</button>
+                            <button class="cbtn fn-btn" data-sci="fact(">n!</button>
+                            <button class="cbtn fn-btn" data-sci="PI">π</button>
+                            <button class="cbtn fn-btn" data-sci="E">e</button>
+                            <button class="cbtn fn-btn" data-sci="**2">x²</button>
+                            <button class="cbtn fn-btn" data-sci="**3">x³</button>
+                            <button class="cbtn fn-btn" data-sci="**(">xⁿ</button>
+                            <button class="cbtn fn-btn" data-sci="(">( )</button>
+                            <button class="cbtn fn-btn" data-sci="sinh(">sinh</button>
+                            <button class="cbtn fn-btn" data-sci="cosh(">cosh</button>
+                            <button class="cbtn fn-btn" data-sci="tanh(">tanh</button>
+                            <button class="cbtn fn-btn sci-clear" data-action="sci-clear">C</button>
+                            <button class="cbtn fn-btn" data-action="sci-back">⌫</button>
+                            <button class="cbtn op-btn" data-sci="/">÷</button>
+                            <button class="cbtn num-btn" data-sci="7">7</button>
+                            <button class="cbtn num-btn" data-sci="8">8</button>
+                            <button class="cbtn num-btn" data-sci="9">9</button>
+                            <button class="cbtn op-btn" data-sci="*">×</button>
+                            <button class="cbtn num-btn" data-sci="4">4</button>
+                            <button class="cbtn num-btn" data-sci="5">5</button>
+                            <button class="cbtn num-btn" data-sci="6">6</button>
+                            <button class="cbtn op-btn" data-sci="-">−</button>
+                            <button class="cbtn num-btn" data-sci="1">1</button>
+                            <button class="cbtn num-btn" data-sci="2">2</button>
+                            <button class="cbtn num-btn" data-sci="3">3</button>
+                            <button class="cbtn op-btn" data-sci="+">+</button>
+                            <button class="cbtn num-btn" data-sci="0">0</button>
+                            <button class="cbtn num-btn" data-sci=".">.</button>
+                            <button class="cbtn fn-btn" data-sci=")">)</button>
+                            <button class="cbtn eq-btn" id="sci-eq">= </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── PROGRAMMER CALCULATOR ──────────────────── -->
+            <section id="page-programmer" class="page">
+                <div class="prog-wrapper glass">
+                    <div class="prog-bases">
+                        <div class="base-row"><span class="base-label">HEX</span><span class="base-val"
+                                id="prog-hex">0</span></div>
+                        <div class="base-row active"><span class="base-label">DEC</span><span class="base-val"
+                                id="prog-dec">0</span></div>
+                        <div class="base-row"><span class="base-label">OCT</span><span class="base-val"
+                                id="prog-oct">0</span></div>
+                        <div class="base-row"><span class="base-label">BIN</span><span class="base-val"
+                                id="prog-bin">0</span></div>
+                    </div>
+                    <div class="prog-mode-row">
+                        <button class="mode-btn active" data-base="10">DEC</button>
+                        <button class="mode-btn" data-base="16">HEX</button>
+                        <button class="mode-btn" data-base="8">OCT</button>
+                        <button class="mode-btn" data-base="2">BIN</button>
+                    </div>
+                    <div class="calc-grid prog-grid">
+                        <button class="cbtn fn-btn" data-prog="AND">AND</button>
+                        <button class="cbtn fn-btn" data-prog="OR">OR</button>
+                        <button class="cbtn fn-btn" data-prog="XOR">XOR</button>
+                        <button class="cbtn fn-btn" data-prog="NOT">NOT</button>
+                        <button class="cbtn fn-btn" data-prog="NAND">NAND</button>
+                        <button class="cbtn fn-btn" data-prog="NOR">NOR</button>
+                        <button class="cbtn fn-btn" data-prog="LSH">LSH</button>
+                        <button class="cbtn fn-btn" data-prog="RSH">RSH</button>
+                        <button class="cbtn hex-btn" data-prog="A">A</button>
+                        <button class="cbtn hex-btn" data-prog="B">B</button>
+                        <button class="cbtn hex-btn" data-prog="C">C</button>
+                        <button class="cbtn fn-btn" data-action="prog-clear">C</button>
+                        <button class="cbtn hex-btn" data-prog="D">D</button>
+                        <button class="cbtn hex-btn" data-prog="E">E</button>
+                        <button class="cbtn hex-btn" data-prog="F">F</button>
+                        <button class="cbtn fn-btn" data-action="prog-back">⌫</button>
+                        <button class="cbtn num-btn" data-prog="7">7</button>
+                        <button class="cbtn num-btn" data-prog="8">8</button>
+                        <button class="cbtn num-btn" data-prog="9">9</button>
+                        <button class="cbtn op-btn" data-prog="/">÷</button>
+                        <button class="cbtn num-btn" data-prog="4">4</button>
+                        <button class="cbtn num-btn" data-prog="5">5</button>
+                        <button class="cbtn num-btn" data-prog="6">6</button>
+                        <button class="cbtn op-btn" data-prog="*">×</button>
+                        <button class="cbtn num-btn" data-prog="1">1</button>
+                        <button class="cbtn num-btn" data-prog="2">2</button>
+                        <button class="cbtn num-btn" data-prog="3">3</button>
+                        <button class="cbtn op-btn" data-prog="-">−</button>
+                        <button class="cbtn num-btn" data-prog="0">0</button>
+                        <button class="cbtn op-btn" data-prog="+">+</button>
+                        <button class="cbtn eq-btn span2" data-action="prog-eq">=</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── GRAPHING CALCULATOR ──────────────────── -->
+            <section id="page-graphing" class="page">
+                <div class="graph-wrapper">
+                    <div class="glass graph-controls">
+                        <div class="eq-inputs" id="eq-inputs">
+                            <div class="eq-row">
+                                <span class="eq-color" style="background:#00d4ff"></span>
+                                <span class="eq-prefix">f(x) =</span>
+                                <input type="text" class="eq-input" id="eq1" placeholder="e.g. x^2 - 3"
+                                    value="x^2 - 3" />
+                            </div>
+                            <div class="eq-row">
+                                <span class="eq-color" style="background:#bf5fff"></span>
+                                <span class="eq-prefix">g(x) =</span>
+                                <input type="text" class="eq-input" id="eq2" placeholder="e.g. sin(x)*5" />
+                            </div>
+                            <div class="eq-row">
+                                <span class="eq-color" style="background:#ff6b35"></span>
+                                <span class="eq-prefix">h(x) =</span>
+                                <input type="text" class="eq-input" id="eq3" placeholder="e.g. 2*x + 1" />
+                            </div>
+                        </div>
+                        <div class="graph-btns">
+                            <button class="gbtn" onclick="plotGraph()">Plot</button>
+                            <button class="gbtn" onclick="resetGraph()">Reset</button>
+                            <button class="gbtn" onclick="zoomGraph(1.2)">+</button>
+                            <button class="gbtn" onclick="zoomGraph(0.8)">−</button>
+                        </div>
+                    </div>
+                    <div class="graph-canvas-wrap glass">
+                        <canvas id="graph-canvas"></canvas>
+                        <div id="graph-coords" class="graph-coords"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── FINANCIAL CALCULATORS ──────────────────── -->
+            <section id="page-financial" class="page">
+                <div class="fin-tabs glass">
+                    <button class="ftab active" data-tab="emi">EMI</button>
+                    <button class="ftab" data-tab="sip">SIP / SWP</button>
+                    <button class="ftab" data-tab="gst">GST</button>
+                    <button class="ftab" data-tab="compound">Compound Interest</button>
+                </div>
+
+                <!-- EMI -->
+                <div id="fin-emi" class="fin-panel glass active">
+                    <h2 class="fin-title" style="color:var(--yellow)">EMI Calculator</h2>
+                    <div class="fin-grid">
+                        <div class="fin-inputs">
+                            <div class="fin-field">
+                                <label>Loan Amount (₹)</label>
+                                <input type="number" id="emi-p" value="1000000" class="fin-input" oninput="calcEMI()" />
+                            </div>
+                            <div class="fin-field">
+                                <label>Annual Interest Rate (%)</label>
+                                <input type="number" id="emi-r" value="8" step="0.1" class="fin-input"
+                                    oninput="calcEMI()" />
+                            </div>
+                            <div class="fin-field">
+                                <label>Loan Tenure (Years)</label>
+                                <input type="number" id="emi-t" value="5" class="fin-input" oninput="calcEMI()" />
+                            </div>
+                        </div>
+                        <div class="fin-results">
+                            <div class="fin-result-main">
+                                <div class="fin-result-label">Monthly EMI</div>
+                                <div class="fin-result-val yellow" id="emi-result">₹0</div>
+                            </div>
+                            <div class="fin-result-grid">
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Principal</div>
+                                    <div class="fin-stat-v" id="emi-principal">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Total Interest</div>
+                                    <div class="fin-stat-v" id="emi-interest">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Total Payment</div>
+                                    <div class="fin-stat-v" id="emi-total">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Tenure</div>
+                                    <div class="fin-stat-v" id="emi-tenure">0 months</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="amort-table-wrap">
+                        <h3 class="amort-title">Amortization (First 12 Months)</h3>
+                        <table class="amort-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>EMI</th>
+                                    <th>Principal</th>
+                                    <th>Interest</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="emi-amort"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SIP -->
+                <div id="fin-sip" class="fin-panel glass">
+                    <h2 class="fin-title" style="color:var(--green)">SIP / SWP Calculator</h2>
+                    <div class="sip-mode">
+                        <button class="sip-mode-btn active" onclick="setSIPMode('sip',this)">SIP</button>
+                        <button class="sip-mode-btn" onclick="setSIPMode('swp',this)">SWP</button>
+                    </div>
+                    <div id="sip-panel" class="fin-grid">
+                        <div class="fin-inputs">
+                            <div class="fin-field"><label>Monthly Investment (₹)</label><input type="number" id="sip-m"
+                                    value="10000" class="fin-input" oninput="calcSIP()" /></div>
+                            <div class="fin-field"><label>Expected Annual Return (%)</label><input type="number"
+                                    id="sip-r" value="12" step="0.5" class="fin-input" oninput="calcSIP()" /></div>
+                            <div class="fin-field"><label>Investment Period (Years)</label><input type="number"
+                                    id="sip-y" value="10" class="fin-input" oninput="calcSIP()" /></div>
+                        </div>
+                        <div class="fin-results">
+                            <div class="fin-result-main">
+                                <div class="fin-result-label">Maturity Amount</div>
+                                <div class="fin-result-val green" id="sip-result">₹0</div>
+                            </div>
+                            <div class="fin-result-grid">
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Total Invested</div>
+                                    <div class="fin-stat-v" id="sip-invested">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Estimated Gains</div>
+                                    <div class="fin-stat-v" id="sip-gains">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Return %</div>
+                                    <div class="fin-stat-v" id="sip-pct">0%</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Duration</div>
+                                    <div class="fin-stat-v" id="sip-dur">0 months</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="swp-panel" class="fin-grid" style="display:none">
+                        <div class="fin-inputs">
+                            <div class="fin-field"><label>Monthly Withdrawal (₹)</label><input type="number" id="swp-w"
+                                    value="20000" class="fin-input" oninput="calcSWP()" /></div>
+                            <div class="fin-field"><label>Expected Annual Return (%)</label><input type="number"
+                                    id="swp-r" value="10" step="0.5" class="fin-input" oninput="calcSWP()" /></div>
+                            <div class="fin-field"><label>Withdrawal Period (Years)</label><input type="number"
+                                    id="swp-y" value="20" class="fin-input" oninput="calcSWP()" /></div>
+                        </div>
+                        <div class="fin-results">
+                            <div class="fin-result-main">
+                                <div class="fin-result-label">Required Corpus</div>
+                                <div class="fin-result-val green" id="swp-result">₹0</div>
+                            </div>
+                            <div class="fin-result-grid">
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Monthly Withdrawal</div>
+                                    <div class="fin-stat-v" id="swp-monthly">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Total Withdrawn</div>
+                                    <div class="fin-stat-v" id="swp-total">₹0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GST -->
+                <div id="fin-gst" class="fin-panel glass">
+                    <h2 class="fin-title" style="color:var(--blue)">GST Calculator</h2>
+                    <div class="gst-mode">
+                        <button class="gst-mode-btn active" onclick="setGSTMode('excl',this)">GST Exclusive</button>
+                        <button class="gst-mode-btn" onclick="setGSTMode('incl',this)">GST Inclusive</button>
+                    </div>
+                    <div class="fin-grid">
+                        <div class="fin-inputs">
+                            <div class="fin-field"><label id="gst-amount-lbl">Amount Before GST (₹)</label><input
+                                    type="number" id="gst-amt" value="10000" class="fin-input" oninput="calcGST()" />
+                            </div>
+                            <div class="fin-field">
+                                <label>GST Rate</label>
+                                <div class="gst-rates">
+                                    <button class="gst-rate-btn" onclick="setGSTRate(5,this)">5%</button>
+                                    <button class="gst-rate-btn" onclick="setGSTRate(12,this)">12%</button>
+                                    <button class="gst-rate-btn active" onclick="setGSTRate(18,this)">18%</button>
+                                    <button class="gst-rate-btn" onclick="setGSTRate(28,this)">28%</button>
+                                    <input type="number" id="gst-rate-custom" value="18"
+                                        class="fin-input gst-custom-input" oninput="calcGST()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fin-results">
+                            <div class="fin-result-main">
+                                <div class="fin-result-label">Total Amount (with GST)</div>
+                                <div class="fin-result-val blue" id="gst-total">₹0</div>
+                            </div>
+                            <div class="fin-result-grid">
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Base Amount</div>
+                                    <div class="fin-stat-v" id="gst-base">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">GST Amount</div>
+                                    <div class="fin-stat-v" id="gst-amt-result">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">CGST</div>
+                                    <div class="fin-stat-v" id="gst-cgst">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">SGST</div>
+                                    <div class="fin-stat-v" id="gst-sgst">₹0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compound Interest -->
+                <div id="fin-compound" class="fin-panel glass">
+                    <h2 class="fin-title" style="color:var(--purple)">Compound Interest Calculator</h2>
+                    <div class="fin-grid">
+                        <div class="fin-inputs">
+                            <div class="fin-field"><label>Principal Amount (₹)</label><input type="number" id="ci-p"
+                                    value="100000" class="fin-input" oninput="calcCI()" /></div>
+                            <div class="fin-field"><label>Annual Rate (%)</label><input type="number" id="ci-r"
+                                    value="10" step="0.5" class="fin-input" oninput="calcCI()" /></div>
+                            <div class="fin-field"><label>Duration (Years)</label><input type="number" id="ci-t"
+                                    value="10" class="fin-input" oninput="calcCI()" /></div>
+                            <div class="fin-field">
+                                <label>Compounding</label>
+                                <select id="ci-n" class="fin-input" onchange="calcCI()">
+                                    <option value="1">Annually</option>
+                                    <option value="2">Semi-Annual</option>
+                                    <option value="4">Quarterly</option>
+                                    <option value="12" selected>Monthly</option>
+                                    <option value="365">Daily</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fin-results">
+                            <div class="fin-result-main">
+                                <div class="fin-result-label">Future Value</div>
+                                <div class="fin-result-val purple" id="ci-result">₹0</div>
+                            </div>
+                            <div class="fin-result-grid">
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Principal</div>
+                                    <div class="fin-stat-v" id="ci-principal">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Interest Earned</div>
+                                    <div class="fin-stat-v" id="ci-interest">₹0</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Growth</div>
+                                    <div class="fin-stat-v" id="ci-growth">0%</div>
+                                </div>
+                                <div class="fin-stat">
+                                    <div class="fin-stat-l">Effective Rate</div>
+                                    <div class="fin-stat-v" id="ci-eff-rate">0%</div>
+                                </div>
+                            </div>
+                            <div class="ci-yearly" id="ci-yearly"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CURRENCY CONVERTER ──────────────────── -->
+            <section id="page-currency" class="page">
+                <div class="glass currency-card">
+                    <h2 class="page-title">Currency Converter</h2>
+                    <p class="currency-note">Indicative rates · Updated snapshot</p>
+                    <div class="currency-row">
+                        <div class="currency-side">
+                            <input type="number" id="cur-from-val" value="1" class="cur-input"
+                                oninput="convertCurrency()" />
+                            <select id="cur-from" class="cur-select" onchange="convertCurrency()"></select>
+                        </div>
+                        <button class="swap-btn" onclick="swapCurrency()">⇄</button>
+                        <div class="currency-side">
+                            <input type="number" id="cur-to-val" class="cur-input" readonly />
+                            <select id="cur-to" class="cur-select" onchange="convertCurrency()"></select>
+                        </div>
+                    </div>
+                    <div class="cur-rate-display" id="cur-rate-display"></div>
+                    <div class="cur-grid" id="cur-grid"></div>
+                </div>
+            </section>
+
+            <!-- ── UNIT CONVERTER ──────────────────── -->
+            <section id="page-unit" class="page">
+                <div class="glass unit-card">
+                    <h2 class="page-title">Unit Converter</h2>
+                    <div class="unit-cats" id="unit-cats"></div>
+                    <div class="unit-row">
+                        <div class="unit-side">
+                            <input type="number" id="unit-from-val" value="1" class="cur-input"
+                                oninput="convertUnit()" />
+                            <select id="unit-from" class="cur-select" onchange="convertUnit()"></select>
+                        </div>
+                        <button class="swap-btn" onclick="swapUnit()">⇄</button>
+                        <div class="unit-side">
+                            <input type="number" id="unit-to-val" class="cur-input" readonly />
+                            <select id="unit-to" class="cur-select" onchange="convertUnit()"></select>
+                        </div>
+                    </div>
+                    <div class="unit-result-text" id="unit-result-text"></div>
+                </div>
+            </section>
+
+            <!-- ── HISTORY ──────────────────── -->
+            <section id="page-history" class="page">
+                <div class="glass hist-toolbar">
+                    <div class="hist-search-wrap">
+                        <span class="search-icon">⌕</span>
+                        <input type="text" id="hist-search" placeholder="Search calculations..." class="hist-search"
+                            oninput="renderHistory()" />
+                    </div>
+                    <div class="hist-filters" id="hist-filters">
+                        <button class="hfilt active" data-filter="all" onclick="setHistFilter('all',this)">All</button>
+                        <button class="hfilt" data-filter="starred"
+                            onclick="setHistFilter('starred',this)">Starred</button>
+                        <button class="hfilt" data-filter="standard"
+                            onclick="setHistFilter('standard',this)">Standard</button>
+                        <button class="hfilt" data-filter="scientific"
+                            onclick="setHistFilter('scientific',this)">Scientific</button>
+                    </div>
+                    <div class="hist-actions">
+                        <button class="hbtn" onclick="exportHistoryCSV()">Export CSV</button>
+                        <button class="hbtn danger" onclick="clearHistory()">Clear All</button>
+                    </div>
+                </div>
+                <div class="glass hist-list-wrap">
+                    <div id="hist-list" class="hist-list"></div>
+                </div>
+            </section>
+
+            <!-- ── FORMULA LIBRARY ──────────────────── -->
+            <section id="page-formulas" class="page">
+                <div class="glass formula-toolbar">
+                    <div class="hist-search-wrap">
+                        <span class="search-icon">⌕</span>
+                        <input type="text" id="formula-search" placeholder="Search formulas..." class="hist-search"
+                            oninput="renderFormulas()" />
+                    </div>
+                    <div class="hist-filters" id="formula-cats"></div>
+                </div>
+                <div class="formula-count" id="formula-count"></div>
+                <div id="formula-grid" class="formula-grid"></div>
+            </section>
+
+            <!-- ── AI ASSISTANT ──────────────────── -->
+            <section id="page-ai" class="page">
+                <div class="glass ai-wrapper">
+                    <div class="ai-header">
+                        <span class="ai-icon">✦</span>
+                        <h2>AI Assistant</h2>
+                        <span class="ai-sub">Natural language calculator</span>
+                    </div>
+                    <div id="ai-messages" class="ai-messages">
+                        <div class="ai-msg bot">
+                            <div class="ai-avatar">✦</div>
+                            <div class="ai-bubble">
+                                Hello! I'm your AI calculator assistant. Ask me anything like:<br>
+                                <em>"What is 15% of 8500?"</em><br>
+                                <em>"Calculate EMI for 5 lakh at 9%"</em><br>
+                                <em>"What is the factorial of 8?"</em><br>
+                                <em>"Solve 245 × 32 step by step"</em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-input-row">
+                        <input type="text" id="ai-input" class="ai-input" placeholder="Ask me a calculation..."
+                            onkeydown="if(event.key==='Enter')sendAI()" />
+                        <button class="ai-send-btn" onclick="sendAI()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SETTINGS ──────────────────── -->
+            <section id="page-settings" class="page">
+                <div class="glass settings-card">
+                    <h2 class="page-title">Settings & Customization</h2>
+
+                    <div class="setting-section">
+                        <h3 class="setting-heading">Theme</h3>
+                        <div class="theme-grid" id="theme-grid">
+                            <button class="theme-swatch active" data-theme="dark" onclick="setTheme('dark',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#0a0e1a,#1a2035)">
+                                </div>
+                                <span>Dark</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="light" onclick="setTheme('light',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#f0f4ff,#e8ecf8)">
+                                </div>
+                                <span>Light</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="amoled" onclick="setTheme('amoled',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#000,#0a0a0a)">
+                                </div>
+                                <span>AMOLED</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="cyberpunk" onclick="setTheme('cyberpunk',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#0d0221,#130a2a)">
+                                </div>
+                                <span>Cyberpunk</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="neon" onclick="setTheme('neon',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#050510,#0a0520)">
+                                </div>
+                                <span>Neon</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="ocean" onclick="setTheme('ocean',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#020f1e,#051428)">
+                                </div>
+                                <span>Ocean</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="sunset" onclick="setTheme('sunset',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#1a0a05,#2a1008)">
+                                </div>
+                                <span>Sunset</span>
+                            </button>
+                            <button class="theme-swatch" data-theme="ai-future" onclick="setTheme('ai-future',this)">
+                                <div class="swatch-preview" style="background:linear-gradient(135deg,#0d0d0d,#1a1a2e)">
+                                </div>
+                                <span>AI Future</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3 class="setting-heading">Sound</h3>
+                        <label class="toggle-row">
+                            <span>Button Click Sounds</span>
+                            <div class="toggle" id="sound-toggle" onclick="toggleSound(this)">
+                                <div class="toggle-thumb"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3 class="setting-heading">Keyboard Shortcuts</h3>
+                        <div class="shortcuts-grid">
+                            <div class="shortcut"><kbd>0–9</kbd><span>Numbers</span></div>
+                            <div class="shortcut"><kbd>+ − * /</kbd><span>Operators</span></div>
+                            <div class="shortcut"><kbd>Enter</kbd><span>Calculate</span></div>
+                            <div class="shortcut"><kbd>Backspace</kbd><span>Delete</span></div>
+                            <div class="shortcut"><kbd>Escape</kbd><span>Clear</span></div>
+                            <div class="shortcut"><kbd>.</kbd><span>Decimal</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
